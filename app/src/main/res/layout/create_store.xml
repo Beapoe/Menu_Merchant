@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/ServerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/TipServerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ServerAddress"
+        android:layout_alignBottom="@id/ServerAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/ServerAddress"
+        android:gravity="center"
+        android:text="服务器地址："
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TipName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TipServerAddress"
+        android:layout_alignLeft="@id/TipServerAddress"
+        android:layout_alignRight="@id/TipServerAddress"
+        android:layout_alignBottom="@id/Name"
+        android:gravity="center"
+        android:text="商户名称："
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ServerAddress"
+        android:layout_alignLeft="@id/ServerAddress"
+        android:layout_alignRight="@id/ServerAddress"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/TipAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TipName"
+        android:layout_alignRight="@id/TipName"
+        android:layout_alignBottom="@id/Address"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="商户地址："
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Name"
+        android:layout_toRightOf="@id/TipAddress"
+        android:ems="10"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/TipBindPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TipAddress"
+        android:layout_alignRight="@id/TipAddress"
+        android:layout_alignBottom="@id/BindPassword"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="绑定密码："
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/BindPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Address"
+        android:layout_toRightOf="@id/TipBindPassword"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/TipPhoneNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TipBindPassword"
+        android:layout_alignRight="@id/TipBindPassword"
+        android:layout_alignBottom="@id/PhoneNum"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="手机号："
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/PhoneNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BindPassword"
+        android:layout_toRightOf="@id/TipPhoneNum"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/Bind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PhoneNum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="#766D6D"
+        android:onClick="BindOnClick"
+        android:text="绑定"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+</RelativeLayout>
