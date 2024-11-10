@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Process;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -28,10 +29,13 @@ public class CreateStore extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_store);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     public void BindOnClick(View v){
         final String TAG = "CreateStore:BindOnClick(...)";
+
 
         SharedPreferences sp = getSharedPreferences("storeInfo",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -68,7 +72,7 @@ public class CreateStore extends Activity {
             editor.apply();
             for(int i=1;i< info.size();i++) info.set(i, Base64Utils.encode(info.get(i),true));
             try {
-                URL url = new URL("http://"+info.get(0));
+                URL url = new URL("http://"+info.get(0)+"/CreateStoreFile");
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 connection.setDoInput(false);
                 connection.setDoOutput(true);
@@ -78,28 +82,19 @@ public class CreateStore extends Activity {
                 connection.setInstanceFollowRedirects(true);
                 connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
                 connection.setRequestProperty("Connection", "Keep-Alive");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            connection.connect();
-                            String params = "name="+info.get(1)+"&address="+info.get(2)+"&bindPassword="+info.get(3)+"&PhoneNum="+info.get(4);
-                            OutputStream ops = connection.getOutputStream();
-                            ops.write(params.getBytes());
-                            ops.flush();
-                            ops.close();
-                            if(connection.getResponseCode() != 200){
-                                Log.e(TAG,"Server returns wrong response code");
-                                Toast.makeText(CreateStore.this,"网络错误，请稍后重试",Toast.LENGTH_SHORT).show();
-                                Process.killProcess(Process.myPid());
-                                System.exit(-1);
-                            }
-                            connection.disconnect();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+                connection.connect();
+                String params = "name="+info.get(1)+"&address="+info.get(2)+"&bindPassword="+info.get(3)+"&PhoneNum="+info.get(4);
+                OutputStream ops = connection.getOutputStream();
+                ops.write(params.getBytes());
+                ops.flush();
+                ops.close();
+                if(connection.getResponseCode() != 200){
+                    Log.e(TAG,"Server returns wrong response code");
+                    Toast.makeText(CreateStore.this,"网络错误，请稍后重试",Toast.LENGTH_SHORT).show();
+                    Process.killProcess(Process.myPid());
+                    System.exit(-1);
+                }
+                connection.disconnect();
                 Toast.makeText(this,"成功绑定",Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
